@@ -1,19 +1,22 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
-import data from './api/data'
+import Header from "../components/Header";
+import TodoList from "../components/TodoList";
+import AddTodo from "../components/AddTodo"; 
+import Footer from "../components/Footer";
+import { GlobalProvider } from "../context/GlobalState";
 
-export default function Home(props) {
+function IndexPage() {
   return (
-    <div>
-      <p> Name: { props.name }</p>
-      <p> Age: { props.age }</p>
-      <p> Country: { props.country }</p>
-    </div>
-  )
+    <GlobalProvider>
+      <div className="App">
+        <div className="container">
+          <Header />
+          <AddTodo />
+          <TodoList />
+        </div>
+        <Footer />
+      </div>
+    </GlobalProvider>
+  );
 }
 
-export async function getServerSideProps(context) {
-  return {
-      props: data()
-  };
-}
+export default IndexPage;

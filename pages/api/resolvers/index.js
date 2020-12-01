@@ -23,12 +23,6 @@ const _initModel = () => {
 
 export const resolvers = {
   Query: {
-    getUsers: async () => {
-      return [{ name: 'ashok', age: '45' }];
-    },
-    getUser: async (_, args) => {
-      return { name: 'kumar', age: '44' };
-    },
     todos: async (_parent, args, _context, _info) => {
       try {
         _initModel();
@@ -42,7 +36,6 @@ export const resolvers = {
   Mutation: {
     addTodo: async (_parent, args, _context, _info) => {
       const { title, completed } = args;
-      console.log("===title and completed", title, completed);
       try {
         const todo = await Todo.create({title, completed });
         if (todo) {

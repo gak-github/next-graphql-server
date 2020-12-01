@@ -6,6 +6,10 @@ export  const  typeDefs  =  gql`
         title: String,
         completed: Boolean
     }
+
+    type  Query {
+        todos: [Todo]
+    }
       
     type Mutation {
         addTodo(title: String!, completed: Boolean!): Todo

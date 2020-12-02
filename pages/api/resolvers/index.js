@@ -24,11 +24,15 @@ const _initModel = () => {
 export const resolvers = {
   Query: {
     todos: async (_parent, args, _context, _info) => {
+      console.log("====== resolvers todos=====");
       try {
         _initModel();
+        console.log("=====after _initModel====");
         const todos = await Todo.find();
+        console.log("=======resolvers todos output======", todos);
         return  _mapData(todos);
       } catch (error) {
+        console.log("========error while callings todos===", error);
         return [];
       }
     },

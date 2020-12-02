@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
 
 //1 . Using mongoose module
-const PASSWORD = process.env.MONGO_PWD || 'ashok123' // comes from netlify environment variable setting
+const PASSWORD = process.env.MONGO_PWD; // comes from netlify environment variable setting
+console.log("========MONGO_PWD====", PASSWORD);
 const MONGO_URI = `mongodb+srv://ashok:${PASSWORD}@mern-stack-tw5cv.mongodb.net/mernstack?retryWrites=true&w=majority`;
 const options = {
   useNewUrlParser: true,

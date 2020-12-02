@@ -1,4 +1,4 @@
-import TodoSchema from '../functions/models/Todos';
+import TodoSchema from '../lib/models/Todos';
 import mongoose from 'mongoose';
 
 const _mapData = (todos) => {
@@ -41,10 +41,39 @@ export const resolvers = {
         if (todo) {
           return { _id: todo._id, title: todo.title, completed: todo.completed };
         }
-        return [];
+        return {};
       } catch (error) {
         console.log("=====error while adding a new todo==", error);
-        return [];
+        return {};
+      }
+    },
+    deleteTodo: async (_parent, args, _context, _info) => {
+      try {
+        const todo = await Todo.findById(args.id);
+        if (!todo) {
+          return { _id: args.id };
+        }
+        await todo.remove();
+        return { _id: args.id };
+      } catch (error) {
+        console.log("=====error while deleting a todo==", error);
+
+      }
+    },
+    updateTodo: async (_parent, args, _context, _info) => {
+      try {
+        const todo = await Todo.findById(args.id);
+        if (!todo) {
+          return {};
+        }
+        todo.completed = args.completed;
+        const updatedTo = await todo.save();
+        if (!updatedTo) {
+          return {};
+        }
+        return { _id: updatedTo._id, title: updatedTo.title, completed: updatedTo.completed };
+      } catch (error) {
+        console.log("=====error while deleting a todo==", error);
       }
     }
   }

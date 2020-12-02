@@ -2,7 +2,7 @@ import  {  ApolloServer }  from  "apollo-server-micro";
 import  {  typeDefs  }  from  "./schemas";
 import  {  resolvers  }  from  "./resolvers";
 import { makeExecutableSchema } from 'graphql-tools'
-import { mongooseConnect } from './functions/config/db'
+import { mongooseConnect } from './lib/config/db'
 
 const schema = makeExecutableSchema({
     typeDefs,

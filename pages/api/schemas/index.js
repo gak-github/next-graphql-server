@@ -10,7 +10,13 @@ export  const  typeDefs  =  gql`
     type  Query {
         todos: [Todo]
     }
+
+    type Obj {
+        _id: String
+    }
       
     type Mutation {
-        addTodo(title: String!, completed: Boolean!): Todo
+        addTodo(title: String!, completed: Boolean!): Todo,
+        deleteTodo(id: String!): Obj,
+        updateTodo(id: String!, completed: Boolean!): Todo,
     }`;

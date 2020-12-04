@@ -15,9 +15,9 @@ const _mapData = (todos) => {
 };
 
 let Todo;
-const _initModel = () => {
+const _initModel = async () => {
   if (!Todo) {
-    Todo = mongoose.model('Todo', TodoSchema);
+    Todo = await mongoose.model('Todo', TodoSchema);
   }
 }
 
@@ -25,22 +25,8 @@ export const resolvers = {
   Query: {
     todos: async (_parent, args, _context, _info) => {
       try {
-        // _initModel();
-        // console.log("=====before calling todos====");
-        // const todos = await Todo.find();
-        // console.log("=====after calling todos", todos);
-        const todos = [
-          {
-            _id: '5e6e532ecd6ae2618d8e2385',
-            title: 'test',
-            completed: true,
-          },
-          {
-            _id: "5e6e79963300c76495fe4422",
-            title: 'do exercise',
-            completed: true,
-          }
-        ];
+        await _initModel();
+        const todos = await Todo.find();
         console.log("====== before returning _mapData====");
         return  _mapData(todos);
       } catch (error) {

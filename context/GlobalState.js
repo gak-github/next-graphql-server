@@ -49,7 +49,9 @@ export const GlobalProvider = ({ children }) => {
   // get todo details
   async function getTodos() {
     try {
-      const res = await request(URL, GET_TODOS)
+      console.log("=======before calling getTodos from globalstate=====");
+      const res = await request(URL, GET_TODOS);
+      console.log("=========after calling global state======", res.todos);
       dispatch({
         type: "GET_TODOS",
         payload: res.todos

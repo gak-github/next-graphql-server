@@ -25,7 +25,7 @@ export const resolvers = {
   Query: {
     todos: async (_parent, args, _context, _info) => {
       try {
-        _initModel();
+        // _initModel();
         // console.log("=====before calling todos====");
         // const todos = await Todo.find();
         // console.log("=====after calling todos", todos);
@@ -41,6 +41,7 @@ export const resolvers = {
             completed: true,
           }
         ];
+        console.log("====== before returning _mapData====");
         return  _mapData(todos);
       } catch (error) {
         return [];

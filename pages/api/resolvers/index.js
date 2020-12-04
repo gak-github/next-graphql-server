@@ -26,9 +26,21 @@ export const resolvers = {
     todos: async (_parent, args, _context, _info) => {
       try {
         _initModel();
-        console.log("=====before calling todos====");
-        const todos = await Todo.find();
-        console.log("=====after calling todos", todos);
+        // console.log("=====before calling todos====");
+        // const todos = await Todo.find();
+        // console.log("=====after calling todos", todos);
+        const todos = [
+          {
+            _id: '5e6e532ecd6ae2618d8e2385',
+            title: 'test',
+            completed: true,
+          },
+          {
+            _id: "5e6e79963300c76495fe4422",
+            title: 'do exercise',
+            completed: true,
+          }
+        ];
         return  _mapData(todos);
       } catch (error) {
         return [];

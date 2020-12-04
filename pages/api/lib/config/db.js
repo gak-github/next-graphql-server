@@ -15,11 +15,14 @@ const connection = {};
 const mongooseConnect = async () => {
   if (connection.isConnected) {
     // use cached connection when available
+    console.log("========connection already established======");
     return;
   }
   try {
+    console.log("=====before connecting the DB=======");
     const dbConnection = await mongoose.connect(MONGO_URI, options);
     connection.isConnected = dbConnection.connections[0].readyState;
+    console.log("=========after connecting DB=======", connection.isConnected)
   } catch (err) {
     logger.error(`error connecting to db ${err.message || err}`);
   }

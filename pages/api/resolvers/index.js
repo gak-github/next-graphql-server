@@ -26,7 +26,9 @@ export const resolvers = {
     todos: async (_parent, args, _context, _info) => {
       try {
         _initModel();
+        console.log("=====before calling todos====");
         const todos = await Todo.find();
+        console.log("=====after calling todos", todos);
         return  _mapData(todos);
       } catch (error) {
         return [];

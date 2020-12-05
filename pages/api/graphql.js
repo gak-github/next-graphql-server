@@ -1,8 +1,10 @@
 import  {  ApolloServer }  from  "apollo-server-micro";
 import  {  typeDefs  }  from  "./schemas";
 import  {  resolvers  }  from  "./resolvers";
-import { makeExecutableSchema } from 'graphql-tools'
-import { mongooseConnect } from './lib/config/db'
+import { makeExecutableSchema } from 'graphql-tools';
+
+// import { mongooseConnect } from './lib/config/db';
+import connectDB from './lib/config/db';
 
 const schema = makeExecutableSchema({
     typeDefs,
@@ -11,12 +13,12 @@ const schema = makeExecutableSchema({
 
 let db = {};
 const  apolloServer  =  new  ApolloServer({
-    schema,
-    context: async () => {
-      if (!db.isConnected) {
-        db = await mongooseConnect();
-      }
-    }
+    schema
+    // context: async () => {
+    //   if (!db.isConnected) {
+    //     db = await mongooseConnect();
+    //   }
+    // }
 });
 
 export  const  config  =  {
@@ -25,10 +27,10 @@ export  const  config  =  {
     }
 };
 
-export  default  apolloServer.createHandler({
+export  default  connectDB(apolloServer.createHandler({
     path: "/api/graphql", 
     cors: {
       origin: '*',
       credentials: true,
   }
-});
+}));

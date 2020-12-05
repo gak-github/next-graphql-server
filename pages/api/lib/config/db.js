@@ -10,6 +10,7 @@ const options = {
   useFindAndModify: false,
 };
 
+/*
 const mongooseConnect = async () => {
   const connection = {};
   try {
@@ -24,6 +25,7 @@ const mongooseConnect = async () => {
 };
 
 export { mongooseConnect }
+*/
 
 // import { MongoClient } from 'mongodb'
 
@@ -53,3 +55,22 @@ const connectDB = async (db) => {
   return { db }
 };
 */
+
+const connect = async () => {
+  await mongoose
+ .connect(MONGO_URI, options)
+ .then(() => console.log('Mongo DB is connected'))
+ .catch(err => console.log(err))
+}
+
+const connectDB = (handler) => async (req, res) => {
+   if(mongoose.connections[0].readyState !== 1) {
+       await connect();
+   }
+   return handler(req, res);
+};
+
+const db = mongoose.connection;
+db.once('ready', () => console.log(`connected to mongo DB`));
+
+export default connectDB;

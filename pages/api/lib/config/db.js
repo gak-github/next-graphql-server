@@ -9,20 +9,15 @@ const options = {
   useCreateIndex: true,
   useFindAndModify: false,
 };
-  
-// Create cached connection variable
-const connection = {};
+
 const mongooseConnect = async () => {
-  if (connection.isConnected) {
-    // use cached connection when available
-    console.log("========connection already established======");
-    return;
-  }
+  const connection = {};
   try {
     console.log("=====before connecting the DB=======");
     const dbConnection = await mongoose.connect(MONGO_URI, options);
     connection.isConnected = dbConnection.connections[0].readyState;
-    console.log("=========after connecting DB=======", connection.isConnected)
+    console.log("=========after connecting DB=======", connection.isConnected);
+    return connection;
   } catch (err) {
     logger.error(`error connecting to db ${err.message || err}`);
   }

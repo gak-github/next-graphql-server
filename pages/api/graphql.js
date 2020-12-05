@@ -9,16 +9,18 @@ const schema = makeExecutableSchema({
     resolvers,
 });
 
-let db;
+let db = {};
 const  apolloServer  =  new  ApolloServer({
     schema,
     context: async () => {
-      return await mongooseConnect();
+      if (!db.isConnected) {
+        db = await mongooseConnect();
+      }
     }
 });
 
 export  const  config  =  {
-    api:  {
+    api: {
         bodyParser:  false
     }
 };

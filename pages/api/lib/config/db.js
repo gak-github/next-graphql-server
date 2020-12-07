@@ -64,7 +64,7 @@ const connect = async () => {
 }
 
 const connectDB = (handler) => async (req, res) => {
-   if(mongoose.connections[0].readyState !== 1) {
+   if(mongoose.connection.readyState !== 1) {
        await connect();
    }
    return handler(req, res);

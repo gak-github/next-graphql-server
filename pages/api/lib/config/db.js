@@ -65,6 +65,7 @@ const connect = async () => {
 }
 
 const connectDB = (handler) => async (req, res) => {
+  console.log("=========mongoose connection state ====", mongoose.connection.readyState);
    if(mongoose.connection.readyState !== 1) {
       console.log("=========before mongoose model mapping");
       await mongoose.model('Todo', TodoSchema);
@@ -73,7 +74,6 @@ const connectDB = (handler) => async (req, res) => {
    return handler(req, res);
 };
 
-const db = mongoose.connection;
-db.once('ready', () => console.log(`connected to mongo DB`));
+export  { connect };
 
 export default connectDB;

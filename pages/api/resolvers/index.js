@@ -14,20 +14,21 @@ const _mapData = (todos) => {
 
 };
 
-let Todo;
-const _initModel = async () => {
-  if (!Todo) {
-    // Todo = await mongoose.model('Todo', TodoSchema);
-    Todo = await mongoose.model('Todo');
-  }
-}
+// let Todo;
+// const _initModel = async () => {
+//   if (!Todo) {
+//     // Todo = await mongoose.model('Todo', TodoSchema);
+//     Todo = await mongoose.model('Todo');
+//   }
+// }
+
+// _initModel();
 
 export const resolvers = {
   Query: {
     todos: async (_parent, args, _context, _info) => {
       try {
-        await _initModel();
-        const todos = await Todo.find();
+        const todos = await _context.Todo.find();
         console.log("====== before returning _mapData====");
         return  _mapData(todos);
       } catch (error) {
@@ -39,7 +40,7 @@ export const resolvers = {
     addTodo: async (_parent, args, _context, _info) => {
       const { title, completed } = args;
       try {
-        const todo = await Todo.create({title, completed });
+        const todo = await _context.Todo.create({title, completed });
         if (todo) {
           return { _id: todo._id, title: todo.title, completed: todo.completed };
         }
@@ -51,7 +52,7 @@ export const resolvers = {
     },
     deleteTodo: async (_parent, args, _context, _info) => {
       try {
-        const todo = await Todo.findById(args.id);
+        const todo = await _context.Todo.findById(args.id);
         if (!todo) {
           return { _id: args.id };
         }
@@ -64,7 +65,7 @@ export const resolvers = {
     },
     updateTodo: async (_parent, args, _context, _info) => {
       try {
-        const todo = await Todo.findById(args.id);
+        const todo = await _context.Todo.findById(args.id);
         if (!todo) {
           return {};
         }

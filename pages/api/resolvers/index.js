@@ -1,4 +1,4 @@
-import TodoSchema from '../lib/models/Todos';
+//import TodoSchema from '../lib/models/Todos';
 import mongoose from 'mongoose';
 
 const _mapData = (todos) => {
@@ -17,7 +17,8 @@ const _mapData = (todos) => {
 let Todo;
 const _initModel = async () => {
   if (!Todo) {
-    Todo = await mongoose.model('Todo', TodoSchema);
+    // Todo = await mongoose.model('Todo', TodoSchema);
+    Todo = await mongoose.model('Todo');
   }
 }
 

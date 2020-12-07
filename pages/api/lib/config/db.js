@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import TodoSchema from '../models/Todos';
 
 //1 . Using mongoose module
 const PASSWORD = process.env.MONGO_PWD; // comes from netlify environment variable setting
@@ -65,7 +66,9 @@ const connect = async () => {
 
 const connectDB = (handler) => async (req, res) => {
    if(mongoose.connection.readyState !== 1) {
-       await connect();
+      console.log("=========before mongoose model mapping");
+      await mongoose.model('Todo', TodoSchema);
+      await connect();
    }
    return handler(req, res);
 };

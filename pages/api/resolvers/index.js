@@ -14,22 +14,13 @@ const _mapData = (todos) => {
 
 };
 
-// let Todo;
-// const _initModel = async () => {
-//   if (!Todo) {
-//     // Todo = await mongoose.model('Todo', TodoSchema);
-//     Todo = await mongoose.model('Todo');
-//   }
-// }
-
-// _initModel();
-
 export const resolvers = {
   Query: {
     todos: async (_parent, args, _context, _info) => {
       try {
         const todos = await _context.Todo.find();
         console.log("====== before returning _mapData====");
+        // return [ { _id: 'abcd1234', title: 'test message', completed: false }];
         return  _mapData(todos);
       } catch (error) {
         return [];

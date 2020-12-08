@@ -15,6 +15,7 @@ const schema = makeExecutableSchema({
 
 let db = {};
 let Todo;
+
 const  apolloServer  =  new  ApolloServer({
     schema,
     context: async () => {
@@ -23,6 +24,7 @@ const  apolloServer  =  new  ApolloServer({
         db.isConnected = mongoose.connection.readyState ? true: false;
         Todo = await mongoose.model('Todo', TodoSchema);
       }
+      console.log("=======db.isConnected====", db.isConnected);
       return { Todo };
     }
 });
